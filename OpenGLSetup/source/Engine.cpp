@@ -7,6 +7,7 @@
 #pragma warning( pop ) 
 
 #include "graphics/Renderer.h"
+#include "subsystem/DebugManager.h"
 
 namespace Engine::Internal
 {
@@ -29,21 +30,24 @@ void Engine::Init()
 	stbi_image_free(images[0].pixels);
 
 	Render::Init();
+	Debug::Init();
 }
 
 void Engine::Update(const float dt)
 {
+	Debug::Update(dt);
+	if(!Debug::Paused())
 	{
 		Render::Update();
 		Render::Render();
 	}
-
+	Debug::Render();
 	Engine::Internal::window->Update();
-	printf("%f \n", dt);
 }
 
 void Engine::Shutdown()
 {
+	Debug::Shutdown();
     Render::Shutdown();
 }
 

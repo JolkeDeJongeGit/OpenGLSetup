@@ -1,6 +1,5 @@
 #include "Pch.h"
 #include "GL/glew.h"
-#include "subsystem/DebugManager.h"
 #include "graphics/Renderer.h"
 
 namespace Render::Internal
@@ -11,8 +10,6 @@ namespace Render::Internal
 
 void Render::Init()
 {
-    Debug::Init();
-
     glGenVertexArrays(1, &Internal::vao);
     glBindVertexArray(Internal::vao);
 
@@ -60,7 +57,6 @@ void Render::Init()
 
 void Render::Update()
 {
-	Debug::Update();
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -72,10 +68,8 @@ void Render::Update()
 
 void Render::Render()
 {
-    Debug::Render();
 }
 
 void Render::Shutdown()
 {
-    Debug::Shutdown();
 }

@@ -61,7 +61,7 @@
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)extern/GLFW/include;$(ProjectDir)extern/STB;$(ProjectDir)extern/GLEW/include;$(ProjectDir)extern/IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)extern/GLFW/include;$(ProjectDir)extern/STB;$(ProjectDir)extern/GLEW/include;$(ProjectDir)extern/IMGUI;$(ProjectDir)extern/GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
@@ -83,7 +83,7 @@
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)extern/GLFW/include;$(ProjectDir)extern/STB;$(ProjectDir)extern/GLEW/include;$(ProjectDir)extern/IMGUI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)extern/GLFW/include;$(ProjectDir)extern/STB;$(ProjectDir)extern/GLEW/include;$(ProjectDir)extern/IMGUI;$(ProjectDir)extern/GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
@@ -96,6 +96,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="extern\IMGUI\iconfont.h" />
     <ClInclude Include="extern\STB\stb_image.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
