@@ -12,7 +12,8 @@
 #include "../ext/quaternion_relational.hpp"
 #include "../gtc/constants.hpp"
 #include "../gtc/matrix_transform.hpp"
-
+#pragma warning( push )
+#pragma warning( disable : 4201 )
 namespace glm
 {
 	template<typename T, qualifier Q>
@@ -184,3 +185,4 @@ namespace glm
 #ifndef GLM_EXTERNAL_TEMPLATE
 #include "type_quat.inl"
 #endif//GLM_EXTERNAL_TEMPLATE
+#pragma warning( pop )

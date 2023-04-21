@@ -96,7 +96,7 @@ void TopBar(const float dt)
     ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
     ImGui::Text("| %.3f delta time", dt);
     ImGui::SameLine();
-    ImGui::Text("| V0.1");
+    ImGui::Text("| V0.3");
     ImGui::PopStyleColor();
     Tooltip("Engine Version");
     ImGui::End();
