@@ -1,5 +1,7 @@
 namespace ShaderManager
 {
+    void Init();
+
     /// <summary>
     /// This loads in the shader and return you the shader index
     /// </summary>
@@ -11,6 +13,9 @@ namespace ShaderManager
 
     // Get shader by path
     GLuint GetShader(const std::string& name);
+
+    // Link the shaders to a program index
+    GLuint LinkShader(const std::string& vertexShader, const std::string& fragmentShader);
 
     // Map of shaders
     std::unordered_map<std::string, GLuint> m_shaders;

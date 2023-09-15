@@ -2,11 +2,13 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_internal.h"
-#include "subsystem/DebugManager.h"
 #include "iconfont.h"
+#include "graphics/Window.h"
+#include "subsystem/DebugManager.h"
 #include "Engine.h"
 
-namespace Debug::Internal
+
+namespace Debug
 {
     bool paused = false;
     bool nextFrame = false;
@@ -66,20 +68,20 @@ void TopBar(const float dt)
     {
     }
     ImGui::SameLine();
-    if (Debug::Internal::paused)
+    if (Debug::paused)
     {
         if (ButtonCenteredOnLine(ICON_FA_PLAY, 0.47f))
-            Debug::Internal::paused = false;
+            Debug::paused = false;
         Tooltip("Play");
         ImGui::SameLine();
         if (ImGui::Button(ICON_FA_FAST_FORWARD))
-            Debug::Internal::nextFrame = true;
+            Debug::nextFrame = true;
         Tooltip("Next Frame");
     }
     else
     {
         if (ButtonCenteredOnLine(ICON_FA_PAUSE, 0.48f))
-            Debug::Internal::paused = true;
+            Debug::paused = true;
         Tooltip("Pause");
     }
 
@@ -233,8 +235,8 @@ void Debug::Render()
 
 bool Debug::Paused()
 {
-    bool t = Internal::paused && !Internal::nextFrame;
-    Internal::nextFrame = false;
+    bool t = paused && !nextFrame;
+    nextFrame = false;
     return t;
 }
 

@@ -6,9 +6,14 @@ namespace ShaderManager::internal
     std::unordered_map<std::string, GLuint> m_shaders;
 }
 
-
 namespace ShaderManager
 {
+    void Init()
+    {
+        //ShaderManager::LoadShader("vertex_b", "assets/shaders/basic_v.glsl");
+        //ShaderManager::LoadShader("fragment_b", "assets/shaders/basic_f.glsl");
+    }
+
     GLuint LoadShader(const std::string& name, const std::string& path, GLenum type)
     {
         // Read file
@@ -57,6 +62,41 @@ namespace ShaderManager
         }
 
         return shader->second;
+    }
+    GLuint LinkShader(const std::string& vertexShader, const std::string& fragmentShader)
+    {
+        GLuint programId = glCreateProgram(); // crate a program
+
+        if (programId == 0)
+        {
+            std::cout << "Error Creating Shader Program";
+            return 0;
+        }
+        GLuint vertexShaderId = GetShader(vertexShader);
+        GLuint fragmentShaderId = GetShader(fragmentShader);
+        // Attach both the shaders to it
+        glAttachShader(programId, vertexShaderId);
+        glAttachShader(programId, fragmentShaderId);
+
+        // Create executable of this program
+        glLinkProgram(programId);
+
+        GLint linkStatus;
+
+        // Get the link status for this program
+        glGetProgramiv(programId, GL_LINK_STATUS, &linkStatus);
+
+        if (!linkStatus)
+        { // If the linking failed
+            std::cout << "Error Linking program";
+            glDetachShader(programId, vertexShaderId);
+            glDetachShader(programId, fragmentShaderId);
+            glDeleteProgram(programId);
+
+            return 0;
+        }
+
+        return programId;
     }
 }
 

@@ -127,6 +127,7 @@
     <ClCompile Include="extern\IMGUI\imgui_impl_opengl3.cpp" />
     <ClCompile Include="extern\IMGUI\imgui_tables.cpp" />
     <ClCompile Include="extern\IMGUI\imgui_widgets.cpp" />
+    <ClCompile Include="source\graphics\Window.cpp" />
     <ClCompile Include="source\graphics\Camera.cpp" />
     <ClCompile Include="source\graphics\Mesh.cpp" />
     <ClCompile Include="source\graphics\Renderer.cpp" />

@@ -1,15 +1,10 @@
 #include "Pch.h"
 #include "Engine.h"
-#pragma warning( push )
-#pragma warning(push, 0)
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-#pragma warning( pop ) 
-
-#include "graphics/Renderer.h"
 #include "subsystem/DebugManager.h"
+#include "graphics/Renderer.h"
+#include "graphics/Window.h"
 
-namespace Engine::Internal
+namespace Engine
 {
 	Window* window; 
 	bool is_running = true;
@@ -17,17 +12,8 @@ namespace Engine::Internal
 
 void Engine::Init()
 {
-	GLFWimage images[1];
-	int width, height, channels;
-	unsigned char* image_data = stbi_load("assets/icon.png", &width, &height, &channels, 0);
-
-	// Create a GLFW image structure
-	images[0].width = width;
-	images[0].height = height;
-	images[0].pixels = image_data;
-	Engine::Internal::window = new Window(1920, 1080, "Template Window");
-	Engine::Internal::window->SetIcon(1, images);
-	stbi_image_free(images[0].pixels);
+	window = new Window(1920, 1080, "Template Window");
+	window->SetIcon(1, "assets/icon.png");
 
 	Render::Init();
 	Debug::Init();
@@ -42,7 +28,7 @@ void Engine::Update(const float dt)
 		Render::Render();
 	}
 	Debug::Render();
-	Engine::Internal::window->Update();
+	window->Update();
 }
 
 void Engine::Shutdown()
@@ -53,10 +39,10 @@ void Engine::Shutdown()
 
 bool Engine::ShouldQuit()
 {
-	return Engine::Internal::window->ShouldClose();
+	return window->ShouldClose();
 }
 
 Window* Engine::GetWindow()
 {
-    return Engine::Internal::window;
+    return Engine::window;
 }

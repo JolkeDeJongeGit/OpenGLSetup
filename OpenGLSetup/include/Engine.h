@@ -1,5 +1,6 @@
 #pragma once
-#include "graphics/Window.h"
+
+class Window;
 namespace Engine
 {
     void Init();

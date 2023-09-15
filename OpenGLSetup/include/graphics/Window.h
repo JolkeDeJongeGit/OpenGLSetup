@@ -10,8 +10,8 @@ public:
     {
         glfwInit();
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+        //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
         window = glfwCreateWindow(width, height, title, nullptr, nullptr);
         glfwMakeContextCurrent(window);
@@ -41,14 +41,10 @@ public:
         glfwPollEvents();
     }
 
-
-
     inline GLFWwindow* GetWindow() { return window; };
 
-    inline void SetIcon(int count, const GLFWimage* images) 
-    {
-        glfwSetWindowIcon(window, count, images);
-    }
+    void SetIcon(int count, const char* name);
+
 
     static float MouseXOffset;
     static float MouseYOffset;
@@ -74,5 +70,6 @@ private:
 
     }
 #pragma warning( pop )
-    GLFWwindow* window;
+    GLFWwindow* window = nullptr;
+    GLFWimage* windowIconImage = nullptr;
 };
