@@ -4,14 +4,17 @@
 namespace ShaderManager::internal
 {
     std::unordered_map<std::string, GLuint> m_shaders;
+    std::unordered_map<std::string, GLuint> m_linkedShaders;
 }
 
 namespace ShaderManager
 {
     void Init()
     {
-        //ShaderManager::LoadShader("vertex_b", "assets/shaders/basic_v.glsl");
-        //ShaderManager::LoadShader("fragment_b", "assets/shaders/basic_f.glsl");
+        ShaderManager::LoadShader("vertex_b", "assets/shaders/basic_v.glsl", GL_VERTEX_SHADER);
+        ShaderManager::LoadShader("fragment_b", "assets/shaders/basic_f.glsl", GL_FRAGMENT_SHADER);
+
+        LinkShader("Basic", "vertex_b", "fragment_b");
     }
 
     GLuint LoadShader(const std::string& name, const std::string& path, GLenum type)
@@ -47,7 +50,7 @@ namespace ShaderManager
         }
 
         // Add shader to map
-        internal::m_shaders[name] = shader;
+        internal::m_shaders.insert(std::pair<std::string, GLuint>(name, shader));
 
         return shader;
     }
@@ -63,7 +66,7 @@ namespace ShaderManager
 
         return shader->second;
     }
-    GLuint LinkShader(const std::string& vertexShader, const std::string& fragmentShader)
+    GLuint LinkShader(const std::string& linkedName, const std::string& vertexShader, const std::string& fragmentShader)
     {
         GLuint programId = glCreateProgram(); // crate a program
 
@@ -96,7 +99,28 @@ namespace ShaderManager
             return 0;
         }
 
+        internal::m_linkedShaders.insert(std::pair<std::string, GLuint>(linkedName, programId));
+
         return programId;
+    }
+
+    GLuint GetLinkedShader(const std::string& name)
+    {
+        auto shader = internal::m_linkedShaders.find(name);
+        if (shader == internal::m_linkedShaders.end())
+        {
+            std::cerr << "Linked Shader not found: " << name << std::endl;
+            return 0;
+        }
+        else
+        {
+            return shader->second;
+        }
+    }
+
+    void UseShader(GLuint index)
+    {
+        glUseProgram(index);
     }
 }
 

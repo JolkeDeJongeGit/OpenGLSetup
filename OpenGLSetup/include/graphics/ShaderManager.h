@@ -11,12 +11,9 @@ namespace ShaderManager
     /// <returns>return the shader index</returns>
     GLuint LoadShader(const std::string& name, const std::string& path, GLenum type);
 
-    // Get shader by path
-    GLuint GetShader(const std::string& name);
-
     // Link the shaders to a program index
-    GLuint LinkShader(const std::string& vertexShader, const std::string& fragmentShader);
+    GLuint LinkShader(const std::string& linkedName, const std::string& vertexShader, const std::string& fragmentShader);
 
-    // Map of shaders
-    std::unordered_map<std::string, GLuint> m_shaders;
+    GLuint GetLinkedShader(const std::string& name);
+    void UseShader(GLuint index);
 }

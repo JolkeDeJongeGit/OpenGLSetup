@@ -10,8 +10,8 @@ public:
     {
         glfwInit();
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
-        //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
         window = glfwCreateWindow(width, height, title, nullptr, nullptr);
         glfwMakeContextCurrent(window);

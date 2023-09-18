@@ -2,13 +2,15 @@
 #include "graphics/Renderer.h"
 #include "graphics/Camera.h"
 #include "graphics/Window.h"
-#include <graphics/Mesh.h>
+#include "graphics/Mesh.h"
+#include "graphics/ShaderManager.h"
+#include <gtc/type_ptr.hpp>
 
 namespace Render
 {
     GLuint vao;
     Camera debugCamera;
-    GLuint shader_program;
+    GLuint shaderProgram;
 
 	Mesh triangle;
 	//// Temp Code
@@ -37,12 +39,14 @@ void Render::Init()
 		1, 2, 3  // Second Triangle
 	};
 
-	triangle = Mesh(Value, indices);
-
 	glViewport(0, 0, 1920, 1080);
+	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 
-	//ShaderManager::Init();
+	Render::debugCamera = Camera();
+	ShaderManager::Init();
+	shaderProgram = ShaderManager::GetLinkedShader("Basic");
+	triangle = Mesh(Value, indices);
 }
 
 void Render::Update()
@@ -50,15 +54,18 @@ void Render::Update()
     Render::debugCamera.ProcessMouseInput(Window::MouseXOffset, Window::MouseYOffset);
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
 }
 
 void Render::Render()
 {
-
-	//glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(Render::debugCamera.GetProjectionMatrix()));
-	//glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(Render::debugCamera.GetViewMatrix()));
-	//triangle.Draw(shaderProgram, glm::mat4());
+	ShaderManager::UseShader(shaderProgram);
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(Render::debugCamera.GetProjectionMatrix(1920, 1080)));
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(Render::debugCamera.GetViewMatrix()));
+	triangle.Draw(shaderProgram, glm::identity<glm::mat4>());
+	
 	//for (unsigned int x = 0; x < screenWidth; x++)
 	//{
 	//	float xScale = x / float(screenWidth);
@@ -71,8 +78,6 @@ void Render::Render()
 	//}
 
 	//glDrawPixels(screenWidth, screenHeight, GL_RGBA, GL_UNSIGNED_BYTE, screenBuffer);
-
-	
 }
 
 void Render::Shutdown()

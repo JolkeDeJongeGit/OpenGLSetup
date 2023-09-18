@@ -103,7 +103,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\basic_v.glsl" />
     <None Include="assets\shaders\basic_f.glsl" />
+    <None Include="assets\shaders\basic_v.glsl" />
   </ItemGroup>
 </Project>
